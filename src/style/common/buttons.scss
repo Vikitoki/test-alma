@@ -1,0 +1,32 @@
+.btn {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 12px 38px;
+
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 36px;
+
+  background: none;
+  border-radius: 40px;
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &_white-outline {
+    color: #fff;
+
+    border: 2px solid #fff;
+
+    @media (min-width: $md2 + px) {
+      &:hover {
+        background-color: #111;
+      }
+    }
+
+    &:active {
+      background-color: rgb(39, 39, 39);
+    }
+  }
+}
