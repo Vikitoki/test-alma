@@ -1,5 +1,6 @@
 import React from "react";
 import { FC } from "react";
+import { FormHomePageContainer } from "../../components/Form/FormContainers/FormHomePageContainer";
 
 import "./HomePage.scss";
 
@@ -8,20 +9,10 @@ const HomePage: FC = () => {
     <div className="home-page">
       <div className="home-page__container container">
         <div className="home-page__content">
-					<h2 className="home-page__title">Конвертатор валюты</h2>
-          <form action="#" className="home-page__form form">
-            <div className="form__items">
-              <div className="form__item">
-                <label className="form__label">Введите значение</label>
-                <input type="text" className="form__input"></input>
-              </div>
-            </div>
-            <div className="form__btns">
-              <button type="submit" className="btn btn_white-outline">
-                Конвертировать
-              </button>
-            </div>
-          </form>
+          <h2 className="home-page__title">Конвертатор валюты</h2>
+          <div className="home-page__form">
+            <FormHomePageContainer />
+          </div>
         </div>
       </div>
     </div>
