@@ -6,6 +6,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { HomePage } from "../../pages/HomePage/HomePage";
 import { store } from "../../store/store";
 import { Provider } from "react-redux";
+import { CurrencyPage } from "../../pages/CurrencyPage/CurrencyPage";
 
 const App: FC = () => {
   return (
@@ -16,6 +17,7 @@ const App: FC = () => {
           <main className="main">
             <Switch>
               <Route exact path="/" component={HomePage} />
+              <Route path="/сurrency" component={CurrencyPage} />
             </Switch>
           </main>
           <Footer />

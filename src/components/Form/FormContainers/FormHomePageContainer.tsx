@@ -21,9 +21,13 @@ const FormHomePageContainer: FC = () => {
   };
 
   const validationSchema = Yup.object({
-    clientCurrencyAmount: Yup.string().required(
-      "Обязательное поле для заполнения"
-    ),
+    clientCurrencyAmount: Yup.number()
+      .test(
+        "not-is-0",
+        "Это поле не может равняться нулю или быть отрицательным",
+        (value) => value !== 0 && value! > 0
+      )
+      .required("Обязательное поле для заполнения"),
     firstCurrency: Yup.string(),
     secondCurrency: Yup.string(),
   });

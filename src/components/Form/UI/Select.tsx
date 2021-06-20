@@ -1,15 +1,15 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { FC } from "react";
 import { Field, ErrorMessage } from "formik";
+import { SelectProps } from "../../../types/form";
 
-interface SelectProps {
-  [key: string]: string | ReactNode;
-  name?: string;
-  options?: any[];
-  labelText?: string;
-}
-
-const Select: FC<SelectProps> = ({ name, labelText, options, ...rest }) => {
+const Select: FC<SelectProps> = ({
+  name,
+  labelText,
+  options,
+  addClass,
+  ...rest
+}) => {
   return (
     <div className="form__item">
       {labelText ? (
@@ -19,7 +19,7 @@ const Select: FC<SelectProps> = ({ name, labelText, options, ...rest }) => {
       ) : null}
       <Field
         as="select"
-        className="form__select"
+        className={`form__select ${addClass && `${addClass}`}`}
         id={name}
         name={name}
         {...rest}
