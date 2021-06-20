@@ -1,5 +1,6 @@
 import { CurrencyActions, CurrencyState } from "../../types/currency";
 import {
+  CHANGE_SELECT_CURRENCY_VALUE,
   CONVERT_ONE_TO_ANOTHER,
   FETCH_CURRENCIES_FAILURE,
   FETCH_CURRENCIES_REQUEST,
@@ -8,6 +9,7 @@ import {
 
 const initialState: CurrencyState = {
   currencyData: {},
+  selectCurrency: "",
   error: "",
   loading: false,
   convertOneToAnother: "",
@@ -24,17 +26,24 @@ export const currencyReducer = (
         loading: true,
       };
     case FETCH_CURRENCIES_SUCCESS:
+      const newBaseCurrency = Object.keys(action.payload)[0];
       return {
         ...state,
         loading: false,
         error: "",
         currencyData: action.payload,
+        selectCurrency: newBaseCurrency,
       };
     case FETCH_CURRENCIES_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.payload,
+      };
+    case CHANGE_SELECT_CURRENCY_VALUE:
+      return {
+        ...state,
+        selectCurrency: action.payload,
       };
     case CONVERT_ONE_TO_ANOTHER:
       const firstCurrency = action.payload.firstCurrency;

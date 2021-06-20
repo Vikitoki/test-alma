@@ -10,7 +10,7 @@ import { convertCurrenies } from "../../../services/currencyActions";
 import { useDispatch } from "react-redux";
 
 const FormHomePageContainer: FC = () => {
-  const [warning, setWarning] = useState(false);
+  const [warning, setWarning] = useState<string>("");
   const { currencyData } = useTypedSelector((state) => state.currency);
   const dispatch = useDispatch();
 
@@ -21,22 +21,26 @@ const FormHomePageContainer: FC = () => {
   };
 
   const validationSchema = Yup.object({
-    clientCurrencyAmount: Yup.number()
+    clientCurrencyAmount: Yup.string()
+      .required("Это поле не может равняться нулю или быть отрицательным")
+      .matches(
+        /^[0-9]+$/,
+        "Это поле не должно содержать букв или других символов"
+      )
       .test(
         "not-is-0",
-        "Это поле не может равняться нулю или быть отрицательным",
-        (value) => value !== 0 && value! > 0
-      )
-      .required("Обязательное поле для заполнения"),
+        "Это поле не может равняться нулю",
+        (value) => Number(value) !== 0
+      ),
     firstCurrency: Yup.string(),
     secondCurrency: Yup.string(),
   });
 
   const onSubmit = (values: IFormHomePageContainerState) => {
     if (values.firstCurrency === values.secondCurrency) {
-      setWarning(true);
+      setWarning("Вы не можете конвертировать две совпадающие валюты");
     } else {
-      setWarning(false);
+      setWarning("");
       dispatch(convertCurrenies(values));
     }
   };
@@ -82,9 +86,7 @@ const FormHomePageContainer: FC = () => {
               </button>
             </div>
             {warning ? (
-              <span className="form__error form__error_center">
-                Вы не можете конвертировать две совпадающие валюты
-              </span>
+              <span className="form__error form__error_center">{warning}</span>
             ) : null}
           </Form>
         );

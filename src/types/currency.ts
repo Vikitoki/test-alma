@@ -1,4 +1,5 @@
 import {
+  CHANGE_SELECT_CURRENCY_VALUE,
   CONVERT_ONE_TO_ANOTHER,
   FETCH_CURRENCIES_FAILURE,
   FETCH_CURRENCIES_REQUEST,
@@ -12,9 +13,10 @@ export interface ICurrencyData {
 
 export interface CurrencyState {
   currencyData: ICurrencyData;
+  convertOneToAnother: string;
+  selectCurrency: string;
   loading: boolean;
   error: string;
-  convertOneToAnother: string;
 }
 
 interface FetchCurrenciesRequestAction {
@@ -36,8 +38,14 @@ interface ConvertOneToAnotherAction {
   payload: IFormHomePageContainerState;
 }
 
+interface ChangeSelectCurrencyValueAction {
+  type: typeof CHANGE_SELECT_CURRENCY_VALUE;
+  payload: string;
+}
+
 export type CurrencyActions =
   | FetchCurrenciesRequestAction
   | FetchCurrenciesFailureAction
   | FetchCurrenciesSuccessAction
-  | ConvertOneToAnotherAction;
+  | ConvertOneToAnotherAction
+  | ChangeSelectCurrencyValueAction;

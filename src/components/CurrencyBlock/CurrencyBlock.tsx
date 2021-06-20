@@ -3,11 +3,23 @@ import { FC } from "react";
 
 import "./CurrencyBlock.scss";
 
-export const CurrencyBlock: FC = () => {
+interface CurrencyBlockProps {
+  baseNameCurrency: string;
+  convertNameCurrency: string;
+  convertCurrencyValue: string;
+}
+
+export const CurrencyBlock: FC<CurrencyBlockProps> = ({
+  baseNameCurrency,
+  convertNameCurrency,
+  convertCurrencyValue,
+}) => {
   return (
     <div className="currency-block">
-      <span>1 USD</span>
-      <span>24 RUb</span>
+      <span>1 {baseNameCurrency}</span>
+      <span>
+        {convertCurrencyValue} {convertNameCurrency}
+      </span>
     </div>
   );
 };

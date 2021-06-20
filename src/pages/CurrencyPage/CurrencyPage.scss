@@ -10,7 +10,6 @@
   &__select {
     display: block;
     width: 100%;
-    max-width: 400px;
 
     select {
       display: block;
@@ -20,7 +19,7 @@
 
       border: 2px solid #fff;
       border-radius: 15px;
-			background: none;
+      background: none;
 
       font-size: 18px;
       font-weight: 500;
@@ -33,17 +32,16 @@
   }
 
   &__top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     margin-bottom: 40px;
   }
 
   &__title {
     display: block;
+    margin-bottom: 20px;
 
     font-size: 30px;
     font-weight: 500;
+    text-align: center;
     color: #fff;
     line-height: 36px;
   }
@@ -52,6 +50,8 @@
     display: block;
     width: 100%;
     padding: 25px;
+    max-width: 750px;
+    margin: 0 auto;
 
     border-radius: 20px;
     border: 3px solid #fff;
@@ -59,9 +59,9 @@
   }
 
   &__list {
-		padding-top: 15px;
-		border-top: 3px solid #fff;
-		
+    padding-top: 15px;
+    border-top: 3px solid #fff;
+
     li {
       display: block;
       margin-bottom: 15px;

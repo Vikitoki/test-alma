@@ -4,12 +4,15 @@ import { FC } from "react";
 import { useDispatch } from "react-redux";
 import { CurrencyBlock } from "../../components/CurrencyBlock/CurrencyBlock";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { getAllCurrency } from "../../services/currencyActions";
+import {
+  changeSelectCurrency,
+  getAllCurrency,
+} from "../../services/currencyActions";
 
 import "./CurrencyPage.scss";
 
 export const CurrencyPage: FC = () => {
-  const { currencyData, error, loading } = useTypedSelector(
+  const { currencyData, error, loading, selectCurrency } = useTypedSelector(
     (state) => state.currency
   );
   const [selectValue, setSelectValue] = useState(
@@ -25,6 +28,7 @@ export const CurrencyPage: FC = () => {
 
   const selectHandler = (event: ChangeEvent<HTMLSelectElement>) => {
     setSelectValue(event.target.value);
+    dispatch(changeSelectCurrency(event.target.value));
   };
 
   return (
@@ -59,9 +63,22 @@ export const CurrencyPage: FC = () => {
                 </div>
               </div>
               <ul className="currency-page__list">
-                <li>
-                  <CurrencyBlock />
-                </li>
+                {Object.keys(currencyData).map((item) => {
+                  const currencyValue = String(
+                    (currencyData[selectCurrency] / currencyData[item]).toFixed(
+                      4
+                    )
+                  );
+                  return (
+                    <li key={item}>
+                      <CurrencyBlock
+                        baseNameCurrency={selectCurrency}
+                        convertNameCurrency={item}
+                        convertCurrencyValue={currencyValue}
+                      />
+                    </li>
+                  );
+                })}
               </ul>
             </>
           )}

@@ -1,5 +1,6 @@
 import { Dispatch } from "react";
 import {
+  changeSelectCurrencyValue,
   convertOneToAnother,
   fetchCurrenciesFailure,
   fetchCurrenciesRequest,
@@ -31,5 +32,11 @@ export const getAllCurrency = () => {
 export const convertCurrenies = (values: IFormHomePageContainerState) => {
   return async (dispatch: Dispatch<CurrencyActions>) => {
     dispatch(convertOneToAnother(values));
+  };
+};
+
+export const changeSelectCurrency = (value: string) => {
+  return async (dispatch: Dispatch<CurrencyActions>) => {
+    dispatch(changeSelectCurrencyValue(value));
   };
 };
