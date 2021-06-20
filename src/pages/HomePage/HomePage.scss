@@ -8,6 +8,10 @@
   background-color: #ffe53b;
   background-image: linear-gradient(147deg, #ffe53b 0%, #ff2525 74%);
 
+  &__result {
+    margin-top: 15px;
+  }
+
   &__content {
     display: block;
     margin: 0 auto;

@@ -26,8 +26,8 @@ const Select: FC<SelectProps> = ({ name, labelText, options, ...rest }) => {
       >
         {options?.map((option) => {
           return (
-            <option key={option.value} value={option.value}>
-              {option.value}
+            <option key={option} value={option}>
+              {option}
             </option>
           );
         })}

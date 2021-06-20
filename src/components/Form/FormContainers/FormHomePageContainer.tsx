@@ -1,41 +1,43 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { FC } from "react";
 import { FormControl } from "../UI/FormControl";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
-
-interface IFormHomePageContainerState {
-  clientCurrency: string;
-  currencyFrom: string;
-  currencyInto: string;
-}
+import { IFormHomePageContainerState } from "../../../types/form";
+import { useTypedSelector } from "../../../hooks/useTypedSelector";
+import { convertCurrenies } from "../../../services/currencyActions";
+import { useDispatch } from "react-redux";
 
 const FormHomePageContainer: FC = () => {
   const [warning, setWarning] = useState(false);
+  const { currencyData } = useTypedSelector((state) => state.currency);
+  const dispatch = useDispatch();
 
   const initialValues: IFormHomePageContainerState = {
-    clientCurrency: "",
-    currencyFrom: "rub",
-    currencyInto: "rub",
+    clientCurrencyAmount: "",
+    firstCurrency: `${Object.keys(currencyData)[0]}`,
+    secondCurrency: `${Object.keys(currencyData)[0]}`,
   };
 
   const validationSchema = Yup.object({
-    clientCurrency: Yup.string().required("Обязательное поле для заполнения"),
-    currencyFrom: Yup.string(),
-    currencyInto: Yup.string(),
+    clientCurrencyAmount: Yup.string().required(
+      "Обязательное поле для заполнения"
+    ),
+    firstCurrency: Yup.string(),
+    secondCurrency: Yup.string(),
   });
 
   const onSubmit = (values: IFormHomePageContainerState) => {
-    if (values.currencyFrom === values.currencyInto) {
+    if (values.firstCurrency === values.secondCurrency) {
       setWarning(true);
     } else {
       setWarning(false);
-      console.log(values);
+      dispatch(convertCurrenies(values));
     }
   };
 
-  const options = [{ value: "rub" }, { value: "eng" }, { value: "sas" }];
+  const options = useMemo(() => Object.keys(currencyData), [currencyData]);
 
   return (
     <Formik
@@ -51,19 +53,19 @@ const FormHomePageContainer: FC = () => {
                 control="input"
                 type="text"
                 labelText="Введите желаемое кол-во валюты"
-                name="clientCurrency"
+                name="clientCurrencyAmount"
               />
               <FormControl
                 control="select"
                 labelText="Выберите исходную валюту"
                 options={options}
-                name="currencyFrom"
+                name="firstCurrency"
               />
               <FormControl
                 control="select"
                 labelText="Выберите конечную валюту"
                 options={options}
-                name="currencyInto"
+                name="secondCurrency"
               />
             </div>
             <div className="form__btns">
